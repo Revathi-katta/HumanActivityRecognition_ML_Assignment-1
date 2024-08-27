@@ -69,6 +69,14 @@ print(f"scikit-learn Decision Tree Accuracy: {accuracy_sklearn:.2f}")
 print(f"scikit-learn Decision Tree Precision: {precision_sklearn:.2f}")
 print(f"scikit-learn Decision Tree Recall: {recall_sklearn:.2f}")
 print(f"scikit-learn Decision Tree MSE: {mse_sklearn:.2f}")
+# USAGE OF OUR DECISION TREE
+# 1.We used a decision tree to predict whether cars are fuel-efficient (more than 23 mpg) or not (The choice of 23 mpg could be based on an industry benchmark or a commonly used standard in the automotive industry.)
+# 2.We took data about cars, including features like mpg, cylinders,displacement,horsepower,weight,accelararion,model year,origin         
+# 3. The model learns from the data to make predictions about whether a car’s fuel efficiency is above or below the threshold.
 
-
+# COMPARE THE PERFORMANCE OF YOUR MODEL WITH THE DECISION TREE MODULE FROM SCIKIT LEARN
+# We compared the results of both models based on accuracy, precision, recall, and mean squared error (MSE). This helps us understand which model is better at predicting and why.
+# The accuracy,precision and recall of the scikit learn model is higher than the custom model and mse of the scikit model is lower indicating scikit-learn model’s predictions are closer to the actual values, with fewer prediction errors.
+# Scikit-learn’s decision tree benefits from optimizations and enhancements that might not be present in a custom implementation.
+# while your custom decision tree performs well, the scikit-learn model provides slightly better results across the board, making it a more reliable choice for predicting car fuel efficiency in this case.
 
