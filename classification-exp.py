@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from tree.base import DecisionTree
-from metrics import *
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score,precisin_score,recall_score
 from sklearn.datasets import make_classification
 
 np.random.seed(42)
