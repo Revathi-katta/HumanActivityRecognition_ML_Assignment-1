@@ -5,73 +5,75 @@ There is no restriction on following the below template, these fucntions are her
 
 import pandas as pd
 
-def one_hot_encoding(X: pd.DataFrame) -> pd.DataFrame:
-    """
-    Function to perform one hot encoding on the input data
-    """
-
-    pass
+def one_hot_encoding(X: pd.DataFrame) -> pd.DataFrame:y,
+    return pd.get_dummies(X)
 
 def check_ifreal(y: pd.Series) -> bool:
-    """
-    Function to check if the given series has real or discrete values
-    """
-
-    pass
+    return y.dtype.name!='category'
 
 
 def entropy(Y: pd.Series) -> float:
-    """
-    Function to calculate the entropy
-    """
-
-    pass
+    probs= Y.value_counts(normalize=True)
+    return-sum(probs*np.log2(probs))
 
 
 def gini_index(Y: pd.Series) -> float:
-    """
-    Function to calculate the gini index
-    """
+    probs=Y.value_counts(normalize=True)
+    return 1-sum(probs**2)
 
-    pass
+def mse(Y:pd.series) -> float:
+    return((Y-Y.mean())**2).mean()
 
 
 def information_gain(Y: pd.Series, attr: pd.Series, criterion: str) -> float:
-    """
-    Function to calculate the information gain using criterion (entropy, gini index or MSE)
-    """
-
-    pass
+    if criterion=="entropy":
+        initial_criterion= entropy(Y)
+    elif criterion=="gini_index":
+        initial_criterion=gini_index(Y)
+    else:
+        initial_criterion=mse(Y)
+    
+    values,counts=np.unique(attr,return_counts=True)
+    weighted_avg_criterion=0
+    total_count=sum(counts)
+    for i,v in enumerate(values):
+        proportion=counts[i]/total_count
+        if criterion=="entropy":
+            criterion_value=entropy(Y[attr==v])
+        elif criterion=="gini_index":
+            criterion_value=gini_index(Y[attr==v])
+        else:
+            criterion_value=mse(Y[attr==v])
+        weighted_avg_criterion += proportion*criterion_value
+    
 
 
 def opt_split_attribute(X: pd.DataFrame, y: pd.Series, criterion, features: pd.Series):
-    """
-    Function to find the optimal attribute to split about.
-    If needed you can split this function into 2, one for discrete and one for real valued features.
-    You can also change the parameters of this function according to your implementation.
-
-    features: pd.Series is a list of all the attributes we have to split upon
-
-    return: attribute to split upon
-    """
-
-    # According to wheather the features are real or discrete valued and the criterion, find the attribute from the features series with the maximum information gain (entropy or varinace based on the type of output) or minimum gini index (discrete output).
-
-    pass
+    best_feature=None
+    best_gain=-np.inf
+    best_split=None
+    for feature in X.columns:
+        gain=information_gain(y,X[feature],criterion)
+        if gain>best_gain:
+            best_gain=gain
+            best_feature=feature
+            best_split=X[feature].mean() if check_ifreal(X[feature]) else None
+    return best_feature,best_split
+    
 
 
 def split_data(X: pd.DataFrame, y: pd.Series, attribute, value):
-    """
-    Funtion to split the data according to an attribute.
-    If needed you can split this function into 2, one for discrete and one for real valued features.
-    You can also change the parameters of this function according to your implementation.
+    if check_ifreal(X[attribute]):
+        mask=X[attribute]<=value
+    else:
+        mask=X[attribute]==value
+    left_X=X[mask]
+    right_x=X[~mask]
+    left_y=y[mask]
+    right_y=y[~mask]
 
-    attribute: attribute/feature to split upon
-    value: value of that attribute to split upon
-
-    return: splitted data(Input and output)
-    """
+    return left_x,left_y,right_X,right_y
 
     # Split the data based on a particular value of a particular attribute. You may use masking as a tool to split the data.
 
-    pass
+    
