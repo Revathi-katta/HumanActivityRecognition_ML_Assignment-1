@@ -4,8 +4,9 @@ There is no restriction on following the below template, these fucntions are her
 """
 
 import pandas as pd
+import numpy as np
 
-def one_hot_encoding(X: pd.DataFrame) -> pd.DataFrame:y,
+def one_hot_encoding(X: pd.DataFrame) -> pd.DataFrame:
     return pd.get_dummies(X)
 
 def check_ifreal(y: pd.Series) -> bool:
