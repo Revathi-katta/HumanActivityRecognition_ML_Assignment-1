@@ -2,9 +2,9 @@
 You can add your own functions here according to your decision tree implementation.
 There is no restriction on following the below template, these fucntions are here to simply help you.
 """
-
-import pandas as pd
 import numpy as np
+import pandas as pd
+
 
 def one_hot_encoding(X: pd.DataFrame) -> pd.DataFrame:
     return pd.get_dummies(X)
@@ -22,7 +22,7 @@ def gini_index(Y: pd.Series) -> float:
     probs=Y.value_counts(normalize=True)
     return 1-sum(probs**2)
 
-def mse(Y:pd.series) -> float:
+def mse(Y:pd.Series) -> float:
     return((Y-Y.mean())**2).mean()
 
 
