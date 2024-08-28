@@ -22,8 +22,13 @@ def gini_index(Y: pd.Series) -> float:
     probs=Y.value_counts(normalize=True)
     return 1-sum(probs**2)
 
+
 def mse(Y:pd.Series) -> float:
-    return((Y-Y.mean())**2).mean()
+    if Y.dtype.name == 'category' or Y.dtype == object:
+        # Calculate the gini index for categorical data to be used in MSE calculation
+        return 1 - (Y.value_counts(normalize=True)**2).sum()
+    else:
+        return np.mean((Y - np.mean(Y))**2)
 
 
 def information_gain(Y: pd.Series, attr: pd.Series, criterion: str) -> float:
